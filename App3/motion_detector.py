@@ -69,7 +69,7 @@ while True:
     motionTrackList = motionTrackList[-2:]  
 
     # Adding the Start time of the motion 
-    if motionTrackList[-1] == 1 and motionTrackList[-2] == 0:  
+    if motionTrackList[-1] == 1 and motionTrackList[-2] == 0:
         motionTime.append(datetime.now())  
 
     # Adding the End time of the motion 
@@ -96,11 +96,12 @@ while True:
         break
     
 # At last we are adding the time of motion or var_motion inside the data frame  
-for a in range(0, len(motionTime), 2):  
-   df = df.append(
-       {"Start" : motionTime[a], "End" : motionTime[a + 1]}, 
-       ignore_index = True)  
-
+for a in range(0, len(motionTime), 2):
+    new_df = pd.DataFrame(
+        {"Start" : motionTime[a], "End" : motionTime[a + 1]}, 
+        index = [0])
+    df = pd.concat([df, new_df])
+    
    
 # To record all the movements, creating a CSV file  
 df.to_csv("Times.csv")  
